@@ -2,22 +2,22 @@ package core.basesyntax.model;
 
 import java.util.Objects;
 
-public class Transactions {
-    private Operations type;
+public class Transaction {
+    private OperationTypes type;
     private Fruit fruit;
     private Integer quantity;
 
-    public Transactions (Operations type,Fruit fruit,Integer quantity) {
+    public Transaction(OperationTypes type, Fruit fruit, Integer quantity) {
         this.fruit = fruit;
         this.quantity = quantity;
         this.type = type;
     }
 
-    public Operations getType() {
+    public OperationTypes getType() {
         return type;
     }
 
-    public void setType(Operations type) {
+    public void setType(OperationTypes type) {
         this.type = type;
     }
 
@@ -33,15 +33,15 @@ public class Transactions {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Transactions that = (Transactions) o;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Transaction that = (Transaction) o;
         return type == that.type
                 && Objects.equals(fruit, that.fruit)
                 && Objects.equals(quantity, that.quantity);

@@ -1,5 +1,7 @@
 package core.basesyntax.service;
 
+import java.util.List;
+
 public interface DataWriter {
-    void formReport(String report, String path);
+    void write(List<String> report, String path);
 }

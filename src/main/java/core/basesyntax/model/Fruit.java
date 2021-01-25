@@ -4,11 +4,9 @@ import java.util.Objects;
 
 public class Fruit {
     private String name;
-    private Integer amount;
 
-    public Fruit(String name, Integer amount) {
+    public Fruit(String name) {
         this.name = name;
-        this.amount = amount;
     }
 
     public String getName() {
@@ -19,25 +17,27 @@ public class Fruit {
         this.name = name;
     }
 
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Integer amount) {
-        this.amount = amount;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Fruit fruit = (Fruit) o;
-        return Objects.equals(name, fruit.name) &&
-                Objects.equals(amount, fruit.amount);
+        return Objects.equals(name, fruit.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, amount);
+        return Objects.hash(name);
     }
+
+    /*@Override
+    public String toString() {
+        return "Fruit{" +
+                "name='" + name + '\'' +
+                '}';
+    }*/
 }
