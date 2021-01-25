@@ -1,25 +1,41 @@
 package core.basesyntax;
 
-import core.basesyntax.model.Operations;
+import core.basesyntax.dao.StorageDAO;
+import core.basesyntax.dao.StorageDAOImpl;
+import core.basesyntax.db.Storage;
+import core.basesyntax.model.Report;
+import core.basesyntax.model.Transaction;
+import core.basesyntax.model.TransactionManager;
+import core.basesyntax.orm.TransactionORM;
+import core.basesyntax.service.*;
+import core.basesyntax.service.reports.PlainReportGenerator;
+import core.basesyntax.service.reports.ReportGenerator;
+
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Map<Operations, OperationStrategy> operationStrategyMap = new HashMap<>();
-        OperationsDao dao = new OperationsDao();
-        operationStrategyMap.put(Operations.BALANCE, new BalanceStrategy(dao));
-        operationStrategyMap.put(Operations.SUPPLY, new SupplyStrategy(dao));
-        operationStrategyMap.put(Operations.PURCHASE, new PurchaseStrategy(dao));
-        operationStrategyMap.put(Operations.RETURN, new ReturnStrategy(dao));
-        FileReader fileReaderService = new CsvFileReader();
-        List<String> linesFromFile =
-                fileReaderService.getAllLines("src/main/resources/FileReaderTest.csv");
-        CsvParser<TransactionDto> parser = new CsvToTransactionDtoParser();
-        List<TransactionDto> parsed = parser.parse(linesFromFile);
-        ShopItemService shopService = new ShopItemServiceImpl(operationStrategyMap);
-        shopService.applyOperationOnShopItem(parsed);
-        String report = shopService.getStringReport();
-        FileWriter fileWriter = new CsvFileWriter();
-        fileWriter.write(report,"src/main/resources/result.csv");
+        DataReader reader = new DataReaderImpl();
+        List<String> lines = reader.linesFromFile("src/main/java/core/basesyntax/test.csv");
 
+        DataInputValidator validator = new InputValidatorImpl();
+        validator.isValid(lines);
+
+        List<Transaction> transactions = TransactionORM.mapFromLines(lines);
+
+        Storage storage = new Storage();
+
+        StorageDAO dao = new StorageDAOImpl(storage);
+
+        TransactionManager manager = new ShopSupervisor(dao);
+        manager.process(transactions);
+
+        ReportGenerator reportGenerator = new PlainReportGenerator(dao);
+        Report report = reportGenerator.generate();
+
+        report.getLines().forEach(System.out::println);
+
+        DataWriter dataWriter = new DataWriterImpl();
+        dataWriter.write(report.getLines(), "testout.csv");
     }
 }

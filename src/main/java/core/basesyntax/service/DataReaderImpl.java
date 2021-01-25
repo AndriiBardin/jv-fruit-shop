@@ -15,7 +15,7 @@ public class DataReaderImpl implements DataReader {
         List<String> list = new ArrayList<>();
         try (BufferedReader bufferedReader =
                      new BufferedReader(Files.newBufferedReader(Path.of(path)))) {
-            bufferedReader.readLine();
+            bufferedReader.readLine(); // skip first line
             String line = bufferedReader.readLine();
             while (line != null) {
                 list.add(line);

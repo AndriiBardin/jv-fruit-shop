@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Storage {
-    Map<Fruit, Integer> dailyReport = new HashMap<>();
+    Map<Fruit, Integer> state = new HashMap<>();
+
+    public Map<Fruit, Integer> getState() {
+        return state;
     }
+}
 
