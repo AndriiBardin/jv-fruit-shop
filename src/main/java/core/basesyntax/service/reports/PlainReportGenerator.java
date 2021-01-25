@@ -1,15 +1,14 @@
 package core.basesyntax.service.reports;
 
-import core.basesyntax.dao.StorageDAO;
+import core.basesyntax.dao.StorageDao;
 import core.basesyntax.model.Report;
-
 import java.util.stream.Collectors;
 
 public class PlainReportGenerator implements ReportGenerator {
 
-    StorageDAO dao;
+    StorageDao dao;
 
-    public PlainReportGenerator(StorageDAO dao) {
+    public PlainReportGenerator(StorageDao dao) {
         this.dao = dao;
     }
 

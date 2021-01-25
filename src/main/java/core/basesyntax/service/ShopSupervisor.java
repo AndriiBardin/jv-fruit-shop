@@ -1,17 +1,16 @@
 package core.basesyntax.service;
 
-import core.basesyntax.dao.StorageDAO;
+import core.basesyntax.dao.StorageDao;
 import core.basesyntax.model.Transaction;
 import core.basesyntax.model.TransactionManager;
 import core.basesyntax.model.TransactionResult;
-
 import java.util.List;
 
 public class ShopSupervisor implements TransactionManager {
 
-    StorageDAO dao;
+    StorageDao dao;
 
-    public ShopSupervisor(StorageDAO dao) {
+    public ShopSupervisor(StorageDao dao) {
         this.dao = dao;
     }
 
@@ -29,11 +28,14 @@ public class ShopSupervisor implements TransactionManager {
                 case "b":
                 case "s":
                 case "r":
-                    return new TransactionResult(transaction.getFruit(), transaction.getQuantity());
+                    return new TransactionResult(transaction.getFruit(),
+                            transaction.getQuantity());
                 case "p":
-                    return new TransactionResult(transaction.getFruit(), -transaction.getQuantity());
+                    return new TransactionResult(transaction.getFruit(),
+                            -transaction.getQuantity());
+                default :
+                    throw new RuntimeException("No such transaction");
             }
-            throw new RuntimeException("Unsupported operation");
         }
     }
 }

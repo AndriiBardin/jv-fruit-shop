@@ -7,8 +7,7 @@ import java.util.List;
 public class DataWriterImpl implements DataWriter {
     @Override
     public void write(List<String> report, String path) {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new java.io.FileWriter(path)))
-        {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new java.io.FileWriter(path))) {
             for (String row: report) {
                 bufferedWriter.write(row);
             }

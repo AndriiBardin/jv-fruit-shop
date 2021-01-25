@@ -3,14 +3,13 @@ package core.basesyntax.dao;
 import core.basesyntax.db.Storage;
 import core.basesyntax.model.Fruit;
 import core.basesyntax.model.TransactionResult;
-
 import java.util.Map;
 
-public class StorageDAOImpl implements StorageDAO {
+public class StorageDaoImpl implements StorageDao {
 
     Storage storage;
 
-    public StorageDAOImpl(Storage storage) {
+    public StorageDaoImpl(Storage storage) {
         this.storage = storage;
     }
 

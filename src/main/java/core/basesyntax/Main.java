@@ -1,16 +1,21 @@
 package core.basesyntax;
 
-import core.basesyntax.dao.StorageDAO;
-import core.basesyntax.dao.StorageDAOImpl;
+import core.basesyntax.dao.StorageDao;
+import core.basesyntax.dao.StorageDaoImpl;
 import core.basesyntax.db.Storage;
 import core.basesyntax.model.Report;
 import core.basesyntax.model.Transaction;
 import core.basesyntax.model.TransactionManager;
-import core.basesyntax.orm.TransactionORM;
-import core.basesyntax.service.*;
+import core.basesyntax.orm.TransactionOrm;
+import core.basesyntax.service.DataInputValidator;
+import core.basesyntax.service.DataReader;
+import core.basesyntax.service.DataReaderImpl;
+import core.basesyntax.service.DataWriter;
+import core.basesyntax.service.DataWriterImpl;
+import core.basesyntax.service.InputValidatorImpl;
+import core.basesyntax.service.ShopSupervisor;
 import core.basesyntax.service.reports.PlainReportGenerator;
 import core.basesyntax.service.reports.ReportGenerator;
-
 import java.util.List;
 
 public class Main {
@@ -21,11 +26,11 @@ public class Main {
         DataInputValidator validator = new InputValidatorImpl();
         validator.isValid(lines);
 
-        List<Transaction> transactions = TransactionORM.mapFromLines(lines);
+        List<Transaction> transactions = TransactionOrm.mapFromLines(lines);
 
         Storage storage = new Storage();
 
-        StorageDAO dao = new StorageDAOImpl(storage);
+        StorageDao dao = new StorageDaoImpl(storage);
 
         TransactionManager manager = new ShopSupervisor(dao);
         manager.process(transactions);

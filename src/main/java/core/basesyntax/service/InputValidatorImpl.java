@@ -1,7 +1,6 @@
 package core.basesyntax.service;
 
 import core.basesyntax.model.OperationTypes;
-
 import java.util.List;
 
 public class InputValidatorImpl implements DataInputValidator {

@@ -1,7 +1,5 @@
 package core.basesyntax.service;
 
-import core.basesyntax.db.Storage;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,7 +13,7 @@ public class DataReaderImpl implements DataReader {
         List<String> list = new ArrayList<>();
         try (BufferedReader bufferedReader =
                      new BufferedReader(Files.newBufferedReader(Path.of(path)))) {
-            bufferedReader.readLine(); // skip first line
+            bufferedReader.readLine();
             String line = bufferedReader.readLine();
             while (line != null) {
                 list.add(line);
